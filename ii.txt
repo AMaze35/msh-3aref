@@ -1,61 +1,72 @@
-# simple login system with dictionary
+# Simple Login System with Dictionary
 
 database = {}
-constantMessage1 = 'Username  '#i wanted to use a constant but had no idea what to do
-#checks if username is in dattabase
-def checkingCaseOfUserNameInDataBase(x):
+User = "Username: "
+
+def CheckUsername(x):
     return x in database.keys()
-#for login
-def fun1():
-    x = input(constantMessage1)
-    if not checkingCaseOfUserNameInDataBase(x):
+
+def Login():
+    x = input(User)
+    if not CheckUsername(x):
         return 0
     y = input("Password: ")
     if y == database[x]["password"]:
         return x
     else:
         return -1
-#for register
-def fun2():
-    x = input(constantMessage1)
-    if checkingCaseOfUserNameInDataBase(x):
+    
+def Register():
+    x = input(User)
+    if CheckUsername(x):
         return -1
-    y = input("New Password: ")
-    z = input("Now enter your secrete phrase for safekeeping: ")
-    database[x] = {"password": y, "secret": z}
+    password = input("Password: ")
+    secret = input("Now enter your secret phrase for safekeeping: ")
+    database[x] = {"password": password, "secret": secret}
     return 1
-def printingOutAllChoicesAndReturnUserChoice():
-    print("\nWhat would you like to do?")
-    print("1) ")
-    print("2) ")
-    print("3) Exit\n")
-    v = int(input("> "))
-    print("")
-    return v
-while True: #loop runs forever till break
-    c = printingOutAllChoicesAndReturnUserChoice()
-    match c:
-        case 1:
 
-            s = fun2()
-            if s == 0:
-                print("error: username not found")
-            elif s == -1:
-                print("error: incorrect password")
-            else:
-                print(f"\nWelcome back, {s}!")
-                print("Your secret phrase is:")
-                print(database[s]["secret"])
-            continue
-        case 2:
-            s=fun1()
-            if s == 1:
-                print("\nSuccessfuly Registered!")
-            elif s==-1:
-                print("error: username already exists")
-            continue
-        case 3:
-            print("Thank You")
-            break
-        case _:
-            print("error: invalid input")
+def Choices():
+    print("\nWhat would you like to do?")
+    print("1) Login")
+    print("2) Register")
+    print("3) Exit\n")
+    ans = int(input("> "))
+    print()
+    return ans
+
+while True:
+    result = Choices()
+
+    if result == 1:
+        log = Login()
+
+        if log == 0:
+            print("Error: Username Not Found")
+
+        elif log == -1:
+            print("Error: Incorrect Password")
+
+        else:
+            print(f"\nWelcome back, {log}!")
+            print("Your secret phrase is:")
+            print(database[log]["secret"])
+
+        continue
+
+    if result == 2:
+        acc = Register()
+
+        if acc == 1:
+            print("\nSuccessfuly Registered!")
+
+        elif  acc == -1:
+            print("Error: Username Taken")
+
+        continue
+
+    if result == 3:
+        print("Thank You")
+        break
+
+    else:
+        print("error: invalid input")
